@@ -8,9 +8,12 @@
     border-radius: 20px;
     padding: 8px;
   }
+
   a:link {
     text-decoration: none;
   }
+
+ 
   .gallery {
     display: flex;
     flex-wrap: wrap;
@@ -22,6 +25,11 @@
     display: block;
     max-width: 100%;
     height: auto;
+    transition: scale 250ms ease;
+  }
+
+  img:hover {
+    scale: 1.03;
   }
   
   .info-item {
