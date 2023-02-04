@@ -25,13 +25,16 @@ export async function onGalleryFormSubmit(event) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-      loadMoreBtn.hide();
+      // loadMoreBtn.hide();
       return;
     }
     Notify.success(`Hooray! We found ${totalHits} images.`);
     renderGalleryMarkUp(hits);
     gallery.refresh();
-    loadMoreBtn.show();
+    if (totalHits > 40) {
+      loadMoreBtn.show();
+    }
+    
     checkHitsMax(hits);
   } catch (error) {
     console.log(error);
@@ -45,17 +48,21 @@ export async function onLoadMoreBtnClick() {
     renderGalleryMarkUp(hits);
     gallery.refresh();
     loadMoreBtn.endLoading();
-    checkHitsMax(hits);
+    // if (page === Math.ceil(totalHits / 40)) {
+    //   Notify.info(`We're sorry, but you've reached the end of search results.`);
+    //   loadMoreBtn.hide();
+    // }
+    checkMaxHits(hits);
     scrollBy();
   } catch (error) {
     console.log(error);
   }
 }
 
-function checkHitsMax(hits) {
-  if (hits.length < 33) {
+function checkMaxHits(hits) {
+  if (hits.length < 40) {
     Notify.info(`We're sorry, but you've reached the end of search results.`);
-    console.log(hits.length);
     loadMoreBtn.hide();
   }
 }
+
